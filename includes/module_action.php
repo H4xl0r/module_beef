@@ -25,66 +25,61 @@ include "../../../functions.php";
 // Checking POST & GET variables...
 if ($regex == 1) {
     regex_standard($_GET["service"], "../msg.php", $regex_extra);
-    regex_standard($_GET["file"], "../msg.php", $regex_extra);
     regex_standard($_GET["action"], "../msg.php", $regex_extra);
     regex_standard($_GET["install"], "../msg.php", $regex_extra);
 }
 
 $service = $_GET['service'];
 $action = $_GET['action'];
-$page = $_GET['page'];
 $install = $_GET['install'];
-
+$page = $_GET['page'];
 $port = 8337;
 
 if($service != "") {
     if ($action == "start") {
+        
         // COPY LOG
         if ( 0 < filesize($mod_logs)) {
             $exec = "$bin_cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
             exec_fruitywifi($exec);
-            
             $exec = "$bin_echo '' > $mod_logs";
             exec_fruitywifi($exec);
         }
-	//START MODULE
-		
-	$exec = "./beef.sh";
-	exec_fruitywifi($exec);
-		
-
+        
+        //START MODULE
+        $exec = "./beef.sh";
+        exec_fruitywifi($exec);
+        
     } else if($action == "stop") {
 				
 		$exec = "ps aux|grep -iEe 'ruby.+beef' | grep -v grep | awk '{print $2}'";
 		exec($exec,$output);
-		
-		$exec = "kill " . $output[0];
+
+        $exec = "$bin_kill " . $output[0];
 		exec_fruitywifi($exec);
 
 		// COPY LOG
         if ( 0 < filesize( $mod_logs ) ) {
             $exec = "$bin_cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
             exec_fruitywifi($exec);
-            
             $exec = "$bin_echo '' > $mod_logs";
             exec_fruitywifi($exec);
         }
 
-
     } else if ($action == "hookstart") {
 
-			$exec = "$bin_iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port $port";
-			exec_fruitywifi($exec);
+        $exec = "$bin_iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port $port";
+        exec_fruitywifi($exec);
 
-			$exec = "$bin_mitdump -q --listen-port $port  --mode transparent -s 'inject_beef.py $io_in_ip' >> $mod_logs &";
-			exec_fruitywifi($exec);
+        $exec = "$bin_mitdump -q --listen-port $port  --mode transparent -s 'inject_beef.py $io_in_ip' >> $mod_logs &";
+        exec_fruitywifi($exec);
 
      } else if($action == "hookstop") {
 
 		$exec = "ps aux|grep -E 'mitmdump.+inject_beef' | grep -v grep | awk '{print $2}'";
 		exec($exec,$output);
 		
-		$exec = "kill " . $output[0];
+		$exec = "$bin_kill " . $output[0];
 		exec_fruitywifi($exec);
 		
 		unset($output);
@@ -96,10 +91,13 @@ if($service != "") {
 
 if ($install == "install_$mod_name") {
 
-    $exec = "chmod 755 install.sh";
+    $exec = "$bin_chmod 755 install.sh";
     exec_fruitywifi($exec);
 
-    $exec = "chmod 755 beef.sh";
+    $exec = "$bin_chmod 755 beef.sh";
+    exec_fruitywifi($exec);
+
+    $exec = "$bin_chmod 755 beef-kali.sh";
     exec_fruitywifi($exec);
 
     $exec = "$bin_sudo ./install.sh > $log_path/install.txt &";
@@ -114,6 +112,4 @@ if ($page == "status") {
 } else {
     header('Location: ../../action.php?page='.$mod_name);
 }
-//header('Location: ../../action.php?page=sslstrip');
-
 ?>
