@@ -1,8 +1,8 @@
 <?
+$mod_version="2.b";
 $mod_type="service";
 $mod_name="beef";
 $mod_alias="Beef";
-$mod_version="2.0";
 $mod_dep="beef";
 $mod_co="Mitmproxy";
 $mod_cotwo="Msfrpcd";
@@ -32,16 +32,15 @@ $mod_hook_file = "hook.js";
 $mod_hook_session_name = "beef";
 $mod_dns_hostname_lookup = "true";
 $mod_sslbeef = "false";
-$mod_sslcertpath = "";
-$mod_sslkeypath = "";
-$mod_metasploit = "false";
+$mod_sslcertpath = "testway";
+$mod_sslkeypath = "testkey";
+$mod_metasploit = "true";
 
 #MSFRPC
 $mod_msfhost = "127.0.0.1";
 $mod_msfport = "55553";
 $mod_msfuser = "msf";
-$mod_msfpasswd = "fruity";
-
+$mod_msfpasswd = "123abc";
 $mod_msfsslenable = "false";
 $mod_msfsslversion = "TLS1";
 $mod_msfsslverify = "false";
@@ -54,19 +53,10 @@ $bin_beef = "$mod_path/includes/beef/beef";
 $bin_msfrpcd= "/usr/bin/msfrpcd";
 $bin_mitmdump = "/bin/mitmdump";
 $bin_iptables = "/sbin/iptables";
-
-
-$bin_ifconfig = "/sbin/ifconfig";
-$bin_iwlist = "/sbin/iwlist";
-$bin_sh = "/bin/sh";
 $bin_echo = "/bin/echo";
-$bin_grep = "/usr/bin/ngrep";
-$bin_killall = "/usr/bin/killall";
 $bin_cp = "/bin/cp";
+$bin_rm = "/bin/rm";
 $bin_chmod = "/bin/chmod";
 $bin_sed = "/bin/sed";
-$bin_rm = "/bin/rm";
-$bin_route = "/sbin/route";
-$bin_perl = "/usr/bin/perl";
-$bin_sleep = "/bin/sleep";
+$bin_kill = "/bin/kill";
 ?>
