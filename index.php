@@ -76,48 +76,46 @@ if ($logfile != "" and $action == "delete") {
 <div class="rounded-top" align="left"> &nbsp; <b><?=$mod_alias?></b> </div>
 <div class="rounded-bottom">
 
-    &nbsp;version <?=$mod_version?><br>  
+    &nbsp;&nbsp;version <?=$mod_version?><br>  
     
     <?
     if(file_exists($bin_beef)){
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $mod_alias  <font style='color:lime'>installed</font><br>";
 	   $ismoduleup = exec($mod_isup);
         if ($ismoduleup != "") {
-        	echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $mod_alias  <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=beef&action=stop&page=module'><b>stop</b></a><br>";
+        	echo "&nbsp; $mod_alias  <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=beef&action=stop&page=module'><b>stop</b></a><br>";
         } else { 
-        	echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $mod_alias  <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=beef&action=start&page=module'><b>start</b></a><br>";
+        	echo "&nbsp; $mod_alias  <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=beef&action=start&page=module'><b>start</b></a><br>";
     	}
         
         if(file_exists($bin_mitmdump)){
-        echo "&nbsp; $mod_co  <font style='color:lime'>installed</font><br>"; 
 	       $ismoduleup = exec($mod_coisup);
     	   if ($ismoduleup != "") {
-                echo "&nbsp;&nbsp; AutoHook <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=beef&action=hookstop&page=module'><b>stop</b></a><br>";
+                echo "&nbsp; AutoHook <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=beef&action=hookstop&page=module'><b>stop</b></a><br>";
     	   } else { 
-        	   echo "&nbsp;&nbsp; AutoHook <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=beef&action=hookstart&page=module'><b>start</b></a><br>";
+        	   echo "&nbsp; AutoHook <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=beef&action=hookstart&page=module'><b>start</b></a><br>";
     	           }
             } else { 
                 echo "&nbsp; $mod_co  <a href='/page_modules.php?show' style='color:red'>install</a><br>";
             }
         
         if(file_exists($bin_msfrpcd)){
-        echo "&nbsp;&nbsp;&nbsp; $mod_cotwo  <font style='color:lime'>installed</font><br>";
 	       $ismoduleup = exec($mod_cotwoisup);
     	   if ($ismoduleup != "") {
-        	   echo "&nbsp;&nbsp;&nbsp; $mod_cotwo  <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=msfrpcd&action=stop&page=module'><b>stop</b></a><br>";
+        	   echo "&nbsp; <a href='/modules/msfrpcd' style='text-decoration: none;'>$mod_cotwo</a> <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='/modules/msfrpcd/includes/module_action.php?service=msfrpcd&action=stop&page=status'><b>stop</b></a><br>";
     	   } else { 
-        	   echo "&nbsp;&nbsp;&nbsp; $mod_cotwo  <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=msfrpcd&action=start&page=module'><b>start</b></a><br>";
+        	   echo "&nbsp; <a href='/modules/msfrpcd' style='text-decoration: none;'>$mod_cotwo</a> <font color='red'><b>disabled</b></font>. | <a href='/modules/msfrpcd/includes/module_action.php?service=msfrpcd&action=start&page=status'><b>start</b></a><br>";
     	           }
             } else { 
-                echo "&nbsp;&nbsp;&nbsp; $mod_cotwo  <a href='/page_modules.php?show' style='color:red'>install</a><br>";
+                echo "&nbsp; $mod_cotwo  <a href='/page_modules.php?show' style='color:red'>install</a><br>";
             }
         
         $ismoduleup = exec($mod_isup);
     	if ($ismoduleup != "") {
-        	echo "&nbsp;&nbsp;&nbsp; UI <a href='http://".$_SERVER['SERVER_ADDR'].":3000/ui/panel' target='_blank'>Panel Login</a>";
+            echo "&nbsp; UI <a href='http://".$_SERVER['SERVER_ADDR'].":3000/ui/panel' target='_blank'>Panel Login</a><br>";
+            echo "&nbsp; Hook <a href='http://".$_SERVER['SERVER_ADDR'].":3000/".$mod_hook_file."' target='_blank'>'http://".$_SERVER['SERVER_ADDR'].":3000/".$mod_hook_file."'</a><br>";
 	   } 
     } else { 
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $mod_alias  <a href='includes/module_action.php?install=install_$mod_name' style='color:red'>install</a><br>";
+        echo "&nbsp; $mod_alias  <a href='includes/module_action.php?install=install_$mod_name' style='color:red'>install</a><br>";
     }    
     ?>
     
@@ -191,19 +189,19 @@ if ($logfile != "" and $action == "delete") {
             <table>
             <td><p>Msfrpcd Settings<p></td>
             <br>
-	    <tr>
+            <tr>
                 <td>Msfrpcd Host: </td>
                 <td><input name="mod_msfhost" type="text" value="<?=$mod_msfhost?>"></td>
             </tr>
-	    <tr>
+            <tr>
                 <td>Msfrpcd Port: </td>
                 <td><input name="mod_msfport" type="number" value="<?=$mod_msfport?>"></td>
             </tr>
-	    <tr>
+            <tr>
                 <td>Msfrpcd User: </td>
                 <td><input name="mod_msfuser" type="text" value="<?=$mod_msfuser?>"></td>
             </tr>
-	    <tr>
+            <tr>
                 <td>Msfrpcd Passwd: </td>
                 <td><input name="mod_msfpasswd" type="text" value="<?=$mod_msfpasswd?>"></td>
             </tr>
@@ -248,7 +246,6 @@ if ($logfile != "" and $action == "delete") {
 	    <!-- OUTPUT -->
 
         <div id="tab-output">
-			
 			<div>
 				<form id="formLogs-Refresh" name="formLogs-Refresh" method="POST" autocomplete="off" action="index.php">
 					<input type="submit" value="refresh">
@@ -259,20 +256,16 @@ if ($logfile != "" and $action == "delete") {
 						} else {
 							$filename = $mod_logs;
 						}
-					
 						$data = open_file($filename);
 						
 						// REVERSE
 						$data_array = explode("\n", $data);
 						$data = implode("\n",array_reverse($data_array));
-						
 					?>
 					<textarea id="output" class="module-content" style="font-family: courier;"><?=htmlspecialchars($data)?></textarea>
 					<input type="hidden" name="type" value="logs">
 				</form>
-		
 			</div>
-            
         </div>
 	
 		<!-- HISTORY -->
@@ -280,11 +273,9 @@ if ($logfile != "" and $action == "delete") {
         <div id="tab-history" class="history">
             <input type="submit" value="refresh">
             <br><br>
-            
             <?
             $logs = glob($mod_logs_history.'*.log');
             print_r($a);
-
             for ($i = 0; $i < count($logs); $i++) {
                 $filename = str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]));
                 echo "<a href='?logfile=".str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]))."&action=delete&tab=2'><b>x</b></a> ";
@@ -293,9 +284,8 @@ if ($logfile != "" and $action == "delete") {
                 echo "<br>";
             }
             ?>
-            
         </div>
-
+        
 		<!-- END HISTORY -->
         
         <!-- ABOUT -->
